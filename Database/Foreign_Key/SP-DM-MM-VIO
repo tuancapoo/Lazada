@@ -1,0 +1,21 @@
+-----------------------------Thuộc DM-----------------------------------
+ALTER TABLE [Thuộc DM] 
+	ADD CONSTRAINT THUOCDANHMUC FOREIGN KEY ([Mã danh mục]) REFERENCES [Danh mục]([Mã danh mục]);
+ALTER TABLE [Thuộc DM] 
+	ADD CONSTRAINT SANPHAMDANHMUC FOREIGN KEY ([Mã sản phẩm],[Mã người bán]) REFERENCES [Sản phẩm]([Mã sản phẩm],[Mã người bán]);
+----------------------------Thuộc tính------------------------
+ALTER TABLE [Thuộc tính] 
+	ADD CONSTRAINT Thuoctinhmauma1 FOREIGN KEY ([Mã mẫu mã],[Mã sản phẩm],[Mã người bán]) REFERENCES [Mẫu mã]([Mã mẫu mã],[Mã sản phẩm],[Mã người bán]);
+ALTER TABLE [Thuộc tính] 
+	ADD CONSTRAINT Thuoctinhmauma2 FOREIGN KEY ([Mã sản phẩm],[Mã người bán],[Mã Tiêu chí]) REFERENCES [Tiêu chí phân loại]([Mã sản phẩm],[Mã người bán],[Mã tiêu chí]);
+
+------------------------Phân loại-----------------------------------
+ALTER TABLE [Mẫu mã] 
+	ADD CONSTRAINT Phanloai FOREIGN KEY ([Mã sản phẩm],[Mã người bán]) REFERENCES [Sản phẩm]([Mã sản phẩm],[Mã người bán]);
+----------------------Sản phẩm-Người bán ????-----------
+ALTER TABLE [Sản phẩm] 
+	ADD CONSTRAINT SanPhamOfNguoiban FOREIGN KEY ([Mã người bán]) REFERENCES [Người bán]([Mã người bán]);
+-----------------------------VIO------------------------------------
+ALTER TABLE [VIO] 
+	ADD CONSTRAINT VIO_MM FOREIGN KEY ([Mã mẫu mã],[Mã sản phẩm],[Mã người bán]) REFERENCES [Mẫu mã]([Mã mẫu mã],[Mã sản phẩm],[Mã người bán]);
+

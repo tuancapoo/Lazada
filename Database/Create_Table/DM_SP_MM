@@ -1,0 +1,83 @@
+Use Lazada
+------------------------------DANH MỤC---------------------------
+Create Table [Danh mục](
+	[Mã danh mục]	int IDENTITY(1,1)	NOT NULL,
+	[Tên danh mục]	nvarchar(20)	NOT NULL,
+	[Mô tả]			nvarchar(100),
+	[Mã danh mục cha] int,
+	CONSTRAINT KEYDANHMUC
+		PRIMARY KEY ([Mã danh mục])
+);
+ALTER TABLE [Danh mục] 
+	ADD CONSTRAINT DANHMUCCHA FOREIGN KEY ([Mã danh mục cha]) REFERENCES [Danh mục]([Mã danh mục]);
+Go
+
+
+------------------------------SẢN PHẨM---------------------------
+Create Table [Sản phẩm](
+	[Mã người bán]	char(8) NOT NULL,
+	[Mã sản phẩm]	char(8)	NOT NULL,
+	[Tên sản phẩm]	nvarchar(50) NOT NULL,
+	[Giá hiển thị]	real	NOT NULL,
+	[Số sao trung bình]	Decimal(1,1),
+	[Tổng tồn]	int	NOT NULL,
+	[Mô tả]	nvarchar(200),
+	[Số lượt đánh giá]	int	NOT NULL,
+	[Số bán]	int	NOT NULL,
+	CONSTRAINT SANPHAMKEY
+		PRIMARY KEY ([Mã sản phẩm],[Mã người bán])
+)
+GO
+------------------------------Thuộc DM---------------------------
+Create Table [Thuộc DM](
+	[Mã danh mục]	int NOT NULL,
+	[Mã người bán]	char(8) NOT NULL,
+	[Mã sản phẩm]	char(8)	NOT NULL,
+	CONSTRAINT THUOCDMKEY
+		PRIMARY KEY ([Mã danh mục],[Mã sản phẩm],[Mã người bán])
+
+)
+GO
+------------------------------TIÊU CHÍ PHÂN LOẠI---------------------------
+Create Table [Tiêu chí phân loại](
+	[Mã người bán]	char(8) NOT NULL,
+	[Mã sản phẩm]	char(8)	NOT NULL,
+	[Mã tiêu chí]	int		NOT NULL,
+	[Tiêu chí]		nvarchar(50) NOT NULL,
+	[Tùy chọn]		nvarchar(50) NOT NULL,
+	CONSTRAINT TieuChiPhanLoaiKey
+		PRIMARY KEY ([Mã sản phẩm],[Mã người bán],[Mã tiêu chí])
+)
+
+------------------------------MẪU MÃ---------------------------
+Create Table [Mẫu mã](
+	[Mã người bán]	char(8) NOT NULL,
+	[Mã sản phẩm]	char(8)	NOT NULL,
+	[Mã mẫu mã]		int		NOT NULL,
+	[Lượng tồn]		int		NOT NULL,
+	[Giá niêm yết]	real	NOT NULL,
+	[Giá khuyến mãi] real,
+	[Thời gian bắt đầu] date,
+	[Thời gian kết thúc] date,
+	CONSTRAINT MAUMAKEY
+		PRIMARY KEY ([Mã mẫu mã],[Mã sản phẩm],[Mã người bán])
+)
+GO
+------------------------------Thuộc tính---------------------------
+Create Table [Thuộc tính](
+	[Mã người bán]	char(8) NOT NULL,
+	[Mã sản phẩm]	char(8)	NOT NULL,
+	[Mã mẫu mã]	int		NOT NULL,
+	[Mã Tiêu chí]		int NOT NULL,
+	Unique ([Mã người bán], [Mã sản phẩm], [Mã mẫu mã], [Mã tiêu chí])
+)
+GO
+------------------------------VIO---------------------------
+Create Table [VIO](
+	[Mã người bán]	char(8) NOT NULL,
+	[Mã sản phẩm]	char(8)	NOT NULL,
+	[Mã mẫu mã]	int		NOT NULL,
+	[Mã Đơn hàng]	char(9)		NOT NULL,
+	[Số lượng]		nvarchar(50) NOT NULL,
+	Unique([Mã người bán],[Mã sản phẩm],[Mã mẫu mã],[Mã Đơn hàng])
+)
